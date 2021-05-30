@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+{% if msgsent: %}
+<div class="card">
+    <h1>Your message was sent successfully!</h1>
+    <a href="/">Go back!</a>
+</div>
+{% else: %}
+<div class="wrapper">
+    <div class="top">
+        <div class="title"><h1>Send me a message!</h1></div>
+    </div>
+    <div class="card">
+    <form action="{{ url_for('contact_me') }}" method="post">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name..">
+        <label for="email">Your Email:</label>
+        <input type="text" id="email" name="email" placeholder="Your email..">
+        <label for="message">Your message</label>
+        <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

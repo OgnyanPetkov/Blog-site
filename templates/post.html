@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway" rel="stylesheet">
-    <link rel="stylesheet" href="../static/css/styles.css">
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 <div class="wrapper">
     <div class="top">
         <div class="title"><h1>{{title}}</h1></div>
@@ -20,9 +13,5 @@
 
     </div>
 </div>
-</body>
-<footer>
-    <p>Copyright {{year}}. Made by Ognyan Petkov.</p>
-</footer>
-</html>
+{% endblock %}
 
