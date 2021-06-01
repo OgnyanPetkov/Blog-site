@@ -1,24 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-{% if msgsent: %}
+{%if msgsent%}
 <div class="card">
     <h1>Your message was sent successfully!</h1>
     <a href="/">Go back!</a>
 </div>
-{% else: %}
+{% else %}
 <div class="wrapper">
     <div class="top">
-        <div class="title"><h1>Send me a message!</h1></div>
+        <div class="title"><h1>Contact form</h1></div>
     </div>
+</div>
+<div class="wrapper">
     <div class="card">
-    <form action="{{ url_for('contact_me') }}" method="post">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" name="name" placeholder="Your name..">
-        <label for="email">Your Email:</label>
-        <input type="text" id="email" name="email" placeholder="Your email..">
-        <label for="message">Your message</label>
-        <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
-        <input type="submit" value="Submit">
+    <form method="POST" action="{{ url_for('contact_me') }}" novalidate >
+        {{ form.csrf_token }}
+        <p>
+            {{ form.name.label }} {{ form.name(size=20) }}
+            {% for err in form.name.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.email.label }} {{ form.email(size=20) }}
+            {% for err in form.email.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.message.label }} {{ form.message(size=20) }}
+            {% for err in form.message.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        {{ form.submit }}
     </form>
     </div>
 </div>
