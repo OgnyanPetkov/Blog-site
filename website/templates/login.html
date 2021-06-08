@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="wrapper">
+    <div class="top">
+        <div class="title"><h1>Log In</h1></div>
+    </div>
+</div>
+<div class="card">
+    <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+        {{ form.csrf_token }}
+        <p>{{ form.email.label }} {{ form.email(size=20) }}
+            {% for err in form.email.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.password.label }} {{ form.password(size=30) }}
+            {% for err in form.password.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        {{ form.submit }}
+    </form>
+</div>
+{% endblock %}
