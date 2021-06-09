@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, flash, Blueprint
 import smtplib
 from flask_wtf import FlaskForm
+from flask_login import login_required, current_user
 from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Email, InputRequired
 from .models import Post
@@ -62,6 +63,7 @@ def send_email(name, email, message):
 
 
 @views.route("/add", methods=['GET', 'POST'])
+@login_required
 def add_blog():
     blog = BlogForm()
     # If user submits data at this route.

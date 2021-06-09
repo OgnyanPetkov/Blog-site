@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="wrapper">
+    <div class="dropdown">
+        <button class="dropbtn">Menu</button>
+        <div class="dropdown-content">
+            {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('auth.login') }}">Log In</a>
+            <a href="{{ url_for('auth.sign_up') }}">Sign Up!</a>
+            <a href="{{ url_for('views.contact_me') }}">Contact me!</a>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('views.add_blog') }}">Add new post</a>
+            <a href="{{ url_for('views.contact_me') }}">Contact me!</a>
+            {% endif %}
+        </div>
+    </div>
     <div class="top">
         <div class="title"><h1>Sign Up</h1></div>
     </div>
@@ -9,7 +23,7 @@
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <div class="notification is-danger">
-        {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+        {{ messages[0] }}. If you have account, go to <a href="{{ url_for('auth.login') }}">login page</a>.
     </div>
     {% endif %}
     {% endwith %}

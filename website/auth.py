@@ -1,6 +1,7 @@
 from flask import render_template, redirect, url_for, flash, Blueprint
 from flask_wtf import FlaskForm
-from werkzeug.security import generate_password_hash
+from flask_login import login_user, login_required, logout_user
+from werkzeug.security import generate_password_hash, check_password_hash
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from .models import User
@@ -29,20 +30,36 @@ def login():
     login_form = LogForm()
     # If user submits data at this route.
     if login_form.validate_on_submit():
+        mail = login_form.email.data
+        password = login_form.password.data
+        user = User.query.filter_by(mail=mail).first()
+        if not user or not check_password_hash(pwhash=user.password, password=password):
+            flash(message='Wrong email or password!')
+            return render_template('login.html', year=current_year, form=login_form)
+        else:
+            flash(message='Login successful!')
+            login_user(user=user)
         return redirect(url_for('views.home'))
 
     # If user requests the route.
     return render_template('login.html', year=current_year, form=login_form)
 
 
+@auth.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('views.home'))
+
+
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
     sign_up_form = SignUpForm()
-    mail = sign_up_form.email.data
-    name = sign_up_form.name.data
-    password = sign_up_form.password.data
     # If user submits data at this route.
     if sign_up_form.validate_on_submit():
+        mail = sign_up_form.email.data
+        name = sign_up_form.name.data
+        password = sign_up_form.password.data
         # Check if user exists
         user = User.query.filter_by(username=name).first()
         user_mail = User.query.filter_by(mail=mail).first()
@@ -53,7 +70,8 @@ def sign_up():
             hash_and_salt_pass = generate_password_hash(password=password, method='pbkdf2:sha256', salt_length=8)
             new_user = User(username=sign_up_form.name.data, mail=sign_up_form.email.data, password=hash_and_salt_pass)
             db.session.add(new_user)
-            db.session.commit
+            db.session.commit()
+
             return redirect(url_for('views.home'))
 
     # If user requests the route.
