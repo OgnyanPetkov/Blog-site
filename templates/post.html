@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="top">
+    <div class="title"><h1>{{title}}</h1></div>
+</div>
+<div class="content">
+    <div class="card">
+        <h1> {{ post.title }}</h1>
+        <h2> {{ post.subtitle }}</h2>
+        <h2>Difficulty: {{post.difficulty}} Duration: {{post.length}}</h2>
+        <p> {{ post.body }}</p>
+    </div>
+</div>
+{% endblock %}
+
