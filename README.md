@@ -10,7 +10,9 @@ In order to work the host needs to write their email and password. The password 
 A login page and signup page links. They contain a WTForm that submits after running validation check. If all requirements are met, data is checked or created in the database. If user provided proper credentials, he is logged in through the LoginManager from Flask-Login. Login/singup pages are visible only if there is no user authenticated.<br />
 A "Add new post" button. It takes the user to a page consisting of WTForm. Upon submitions validation of the field runs. If successful, submitted data is commited to database and user is taken to homepage. The button is visible only if there is an authenticated user.<br />
 A logout page link. Upon clicking it redirects the user to a route that logs out the user. The button is visible only if there is an authenticated user. <br />
+If logged in the admin account, each post has edit button that redirects to page with WTForm filled with the data of the post. After edit it updates the data in the database.
+Also the admin can delete posts.
+The adding, editing and deleting routes is protected by admin_only decorator.<br />
 
-Future features: creating an admin account with sole permission to add and edit blog posts.<br />
 
-Possible features to be added: comment section for each blog with name of commenter and time of posting the comment.<br />
+Possible features to be added: comment section for each blog with name of commenter and time of posting the comment and option to make other users admins (practice for relational databases)<br />
