@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="top">
+        <div class="title"><h1>Add new blog</h1></div>
+    </div>
+    <div class="card">
+    <form method="POST" action="{{ url_for('views.add_blog') }}" novalidate >
+        {{ blog.csrf_token }}
+        <p>
+            {{ blog.title.label }} {{ blog.title(size=1) }}
+            {% for err in blog.title.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ blog.subtitle.label }} {{ blog.subtitle(size=20) }}
+            {% for err in blog.subtitle.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ blog.body.label }} {{ blog.body(size=20) }}
+            {% for err in blog.body.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ blog.difficulty.label }} {{ blog.difficulty(size=1) }}
+            {% for err in blog.difficulty.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ blog.length.label }} {{ blog.length(size=1) }}
+            {% for err in blog.length.errors %}
+            <span style="color: red">{{ err }}</span>
+            {% endfor %}
+        </p>
+        {{ blog.submit }}
+    </form>
+    </div>
+{% endblock %}
