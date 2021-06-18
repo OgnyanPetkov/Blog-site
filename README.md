@@ -1,7 +1,7 @@
 # Blog-site
 Blog site - a dynamic HTML page made with the Flask framework (Jinja).<br />
 
-On the home page there is a list of all posts which are dynamicly generated in the HTML from a database.<br />
+On the home page there is a list of all posts which are dynamically generated in the HTML from a database.<br />
 Each post contains a "Read" button which takes the user to subpage of the chosen containing the post title, subtitle, body, difficult and duration.<br />
 It has a dropdown menu which contents depend if there is a logged user.<br />
 The dropdown menu has:<br />
