@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, Blueprint, abort
+from flask import render_template, redirect, url_for, Blueprint, abort, json, jsonify
 import smtplib
 from flask_wtf import FlaskForm
 from flask_login import login_required, current_user
@@ -8,6 +8,7 @@ from .models import Post
 from . import db
 from . import current_year
 from functools import wraps
+import random
 
 views = Blueprint('views', __name__)
 
@@ -48,11 +49,7 @@ def home():
 
 @views.route("/blog/<int:index>")
 def get_blog(index):
-    requested_post = None
-    all_posts = Post.query.all()
-    for post in all_posts:
-        if post.id == index:
-            requested_post = post
+    requested_post = Post.query.get(index)
     return render_template("post.html", year=current_year, post=requested_post)
 
 
@@ -123,3 +120,18 @@ def delete_blog(index):
     db.session.delete(post_to_delete)
     db.session.commit()
     return redirect(url_for('views.home'))
+
+
+# API call routes
+@views.route('/random')
+def get_random_hike():
+    all_hikes = Post.query.all()
+    random_hike = random.choice(all_hikes).to_dict()
+    return jsonify(random_hike)
+
+
+@views.route('/all')
+def get_all_hikes():
+    all_hikes = Post.query.all()
+    all_hikes_dict = {"hikes": [hike.to_dict() for hike in all_hikes]}
+    return jsonify(all_hikes_dict)

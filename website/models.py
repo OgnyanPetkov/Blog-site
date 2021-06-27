@@ -10,6 +10,9 @@ class Post(db.Model):
     difficulty = db.Column(db.Text, nullable=False)
     length = db.Column(db.Text, nullable=False)
 
+    def to_dict(self):
+        return {column.name: getattr(self, column.name) for column in self.__table__.columns}
+
 
 class User(db.Model, UserMixin):
     __bind_key__ = 'users'

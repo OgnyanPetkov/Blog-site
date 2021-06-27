@@ -13,6 +13,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
     app.config['SQLALCHEMY_BINDS'] = {'users': 'sqlite:///users.db'}
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    app.config['JSON_AS_ASCII']=False
     db.init_app(app=app)
 
     login_manager = LoginManager()
