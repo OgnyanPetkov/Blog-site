@@ -13,6 +13,6 @@ A logout page link. Upon clicking it redirects the user to a route that logs out
 If logged in the admin account, each post has edit button that redirects to page with WTForm filled with the data of the post. After edit it updates the data in the database.
 Also the admin can delete posts.
 The adding, editing and deleting routes is protected by admin_only decorator.<br />
-
+Has API call routes /all and /search to obtain all hikes or random hike. Response of this routes is JSON.
 
 Possible features to be added: comment section for each blog with name of commenter and time of posting the comment and option to make other users admins (practice for relational databases)<br />
